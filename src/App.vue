@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+    <div>
+        <VueSidebarMenuAkahon
+            :menu-items="items" :profile-img="'https://picsum.photos/200/300'"
+            profileName="William Quijano"
+            :is-exit-button="false"
+            :isSearch="false"
+            menuTitle="DIPARVEL"
+            menu-icon="bxl-tux"
+            bgColor="#000000"
+        />
+    </div>
+        <router-view></router-view>
+    </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import VueSidebarMenuAkahon from "vue-sidebar-menu-akahon";
+
+
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+
+    name: 'component.vue',
+    components: {'VueSidebarMenuAkahon':VueSidebarMenuAkahon},
+
+
+    data() {
+        return {
+            items : []
+        }
+    },
+    mounted() {
+         this.items =[
+             {link: '/#/pokemon',name: 'pokemon', tooltip: 'pokemon', icon:'bx-run'},
+             {link: '/',name: 'home', tooltip: 'home', icon:'bx-home'},
+                
+
+             ]
+    },
+    methods :{
+
+    }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
