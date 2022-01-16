@@ -18,16 +18,20 @@
           Busca tu pokemon de tu elección
         </p>
       </div>
-      <div class="input-group col-11 m-3 p-0 justify-content-center">
-        <input
-          type="text"
-          v-on:keyup.enter="searchPokemon"
-          class="form-control col-9"
+      <div class="input-group col-11 m-5 p-0 justify-content-center">
+        <Autocomplete
           v-model="namePokemon"
-        />
+          v-on:keyup.enter="searchPokemon"
+          @keypress="suggestionSearch"
+          :results="pokemonfilter"
+          :max="5"
+          @onSelect="selectPokemon"
+          :value="namePokemon"
+          placeholder="Pokemon"
+        ></Autocomplete>
         <div class="input-group-append">
           <span
-            class="input-group-text"
+            class="input-group-text text-primary"
             style="cursor: pointer"
             v-on:click="searchPokemon"
             ><i class="fas fa-search"></i
@@ -67,7 +71,15 @@
   </div>
 </template>
 <script>
+import Autocomplete from "vue3-autocomplete";
+// Optional: Import default CSS
+import "vue3-autocomplete/dist/vue3-autocomplete.css";
+
 export default {
+  name: "YourComponentName",
+  components: {
+    Autocomplete,
+  },
   data() {
     return {
       pokemons: [],
@@ -76,6 +88,8 @@ export default {
       namePokemon: "",
       currentUrl: "",
       apiUrl: "https://pokeapi.co/api/v2/pokemon/",
+      allpokemon: [],
+      pokemonfilter: [],
     };
   },
 
@@ -116,10 +130,29 @@ export default {
           });
         });
     },
+    async suggestionRequest() {
+      await this.axios
+        .get("https://pokeapi.co/api/v2/pokemon?limit=1118")
+        .then((result) => {
+          result.data.results.forEach((pokemon) => {
+            this.allpokemon.push(pokemon);
+          });
+        });
+    },
+    suggestionSearch() {
+      let expresion = new RegExp(`${this.namePokemon}.*`, "i");
+      this.pokemonfilter = this.allpokemon.filter((poke) => expresion.test(poke.name));
+
+      console.log(this.pokemonfilter);
+    },
+    async selectPokemon(pokemon) {
+      this.namePokemon = pokemon.name;
+    },
     searchPokemon() {
       this.currentUrl = this.apiUrl + this.namePokemon.toLowerCase();
       this.viewPokemon();
     },
+
     scrollTrigger() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -183,6 +216,7 @@ export default {
     this.viewPokemon();
   },
   mounted() {
+    this.suggestionRequest();
     this.scrollTrigger();
   },
 };

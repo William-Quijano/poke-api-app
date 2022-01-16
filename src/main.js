@@ -5,7 +5,10 @@ import App from './App.vue'
 import axios from "axios";
 import vueAxios from 'vue-axios'
 
-
+// import autocomplete 
+import Autocomplete from 'vue3-autocomplete'
+// Optional: Import default CSS
+import 'vue3-autocomplete/dist/vue3-autocomplete.css'
 //import router
 
 import {createRouter,createWebHashHistory} from 'vue-router'
@@ -31,6 +34,7 @@ const app = createApp(App)
 app.use(router)
 app.use(vueAxios,axios)
 app.use(VueSweetalert2)
+app.component('Autocomplete', Autocomplete)
 app.component('vue-sidebar-menu-akahon', VueSidebarMenuAkahon);
 app.mount('#app')
 
