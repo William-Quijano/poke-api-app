@@ -73,7 +73,7 @@
 <script>
 import Autocomplete from "vue3-autocomplete";
 // Optional: Import default CSS
-import "vue3-autocomplete/dist/vue3-autocomplete.css";
+import "../assets/style.css";
 
 export default {
   name: "YourComponentName",

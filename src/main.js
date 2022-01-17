@@ -1,4 +1,4 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 
 //import axios
@@ -8,17 +8,17 @@ import vueAxios from 'vue-axios'
 // import autocomplete 
 import Autocomplete from 'vue3-autocomplete'
 // Optional: Import default CSS
-import 'vue3-autocomplete/dist/vue3-autocomplete.css'
+import './assets/style.css'
 //import router
 
-import {createRouter,createWebHashHistory} from 'vue-router'
-import {routes} from './router'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import { routes } from './router'
 
 const router = createRouter({
     // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
     history: createWebHashHistory(),
     routes, // short for `routes: routes`
-  })
+})
 
 
 // sliderbar configuration
@@ -32,9 +32,8 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 const app = createApp(App)
 app.use(router)
-app.use(vueAxios,axios)
+app.use(vueAxios, axios)
 app.use(VueSweetalert2)
 app.component('Autocomplete', Autocomplete)
 app.component('vue-sidebar-menu-akahon', VueSidebarMenuAkahon);
 app.mount('#app')
-
