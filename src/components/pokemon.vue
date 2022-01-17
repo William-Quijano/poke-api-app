@@ -18,11 +18,11 @@
           Busca tu pokemon de tu elección
         </p>
       </div>
-      <div class="input-group col-11 m-5 p-0 justify-content-center">
+      <div class="col-12 d-flex justify-content-center align-items-center styleInput">
         <Autocomplete
           v-model="namePokemon"
           v-on:keyup.enter="searchPokemon"
-          @keypress="suggestionSearch"
+          @keyup="suggestionSearch"
           :results="pokemonfilter"
           :max="5"
           @onSelect="selectPokemon"
